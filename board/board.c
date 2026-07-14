@@ -39,6 +39,9 @@ void SystemClock_Config(void)
         ENABLE);
 }
 
+
+
+
 /* ==================== 外设时钟使能 配置选项 ==================== */
 /* 
 UART1
@@ -50,6 +53,10 @@ RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1, ENABLE);
 I2C1：
 RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C1, ENABLE);
 */
+
+
+
+
 /* ==================== NVIC 配置 ==================== */
 void NVIC_Configuration(void)
 {
