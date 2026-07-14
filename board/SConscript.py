@@ -2,10 +2,10 @@
 
 import os
 
-# 当前目录
+# 当前目录路径
 cwd = GetCurrentDir()
 
-# 源文件列表（根据你的 board/ 目录）
+# 本目录需要编译的源文件
 src = [
     'board.c',
     'pin.c',
@@ -15,7 +15,7 @@ src = [
     'drv_key.c',
 ]
 
-# 添加到编译系统
+# 定义一个编译组（RT-Thread 标准写法）
 group = DefineGroup(
     name        = 'Board',
     src         = src,
