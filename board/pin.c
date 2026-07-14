@@ -3,13 +3,13 @@
 #include "n32l40x.h"
 
 /* ============================================================
- * pin 映射结构体
+ * pin 映射结构体（★ N32L40x 必须使用 GPIO_Module）
  * ============================================================ */
 struct pin_index
 {
-    uint8_t index;            /* pin 编号（GET_PIN 计算结果） */
-    GPIO_TypeDef *gpio;       /* GPIO 端口 */
-    uint16_t pin;             /* GPIO_Pin_x */
+    uint8_t index;
+    GPIO_Module *gpio;     /* ★ 修复：必须使用 GPIO_Module */
+    uint16_t pin;
 };
 
 /* ============================================================
@@ -128,14 +128,15 @@ static int n32_pin_read(rt_device_t dev, rt_base_t pin)
 }
 
 /* ============================================================
- * pin 模式配置
+ * pin 模式配置（★ 使用 N32 的 GPIO_InitType）
  * ============================================================ */
 static void n32_pin_mode(rt_device_t dev, rt_base_t pin, rt_base_t mode)
 {
     const struct pin_index *index = get_pin(pin);
     if (!index) return;
 
-    GPIO_InitType GPIO_InitStructure;
+    GPIO_InitType GPIO_InitStructure;   /* ★ 修复：必须使用 GPIO_InitType */
+
     GPIO_InitStructure.Pin = index->pin;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 
