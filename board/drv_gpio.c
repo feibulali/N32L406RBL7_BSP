@@ -2,9 +2,9 @@
 #include "n32l40x.h"
 
 /* ============================================================
- * GPIO 时钟使能（自动根据端口选择）
+ * 自动 GPIO 时钟使能（适配 N32L40x）
  * ============================================================ */
-static void gpio_clock_enable(GPIO_TypeDef *gpio)
+static void gpio_clock_enable(GPIO_Module *gpio)
 {
     if (gpio == GPIOA)
         RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
@@ -19,7 +19,7 @@ static void gpio_clock_enable(GPIO_TypeDef *gpio)
 /* ============================================================
  * GPIO 模式配置（由 pin.c 调用）
  * ============================================================ */
-void drv_gpio_mode(GPIO_TypeDef *gpio, uint16_t pin, uint32_t mode)
+void drv_gpio_mode(GPIO_Module *gpio, uint16_t pin, uint32_t mode)
 {
     GPIO_InitType GPIO_InitStructure;
 
@@ -57,7 +57,7 @@ void drv_gpio_mode(GPIO_TypeDef *gpio, uint16_t pin, uint32_t mode)
 /* ============================================================
  * GPIO 写入（由 pin.c 调用）
  * ============================================================ */
-void drv_gpio_write(GPIO_TypeDef *gpio, uint16_t pin, rt_base_t value)
+void drv_gpio_write(GPIO_Module *gpio, uint16_t pin, rt_base_t value)
 {
     if (value)
         GPIO_SetBits(gpio, pin);
@@ -68,7 +68,7 @@ void drv_gpio_write(GPIO_TypeDef *gpio, uint16_t pin, rt_base_t value)
 /* ============================================================
  * GPIO 读取（由 pin.c 调用）
  * ============================================================ */
-rt_base_t drv_gpio_read(GPIO_TypeDef *gpio, uint16_t pin)
+rt_base_t drv_gpio_read(GPIO_Module *gpio, uint16_t pin)
 {
     return GPIO_ReadInputDataBit(gpio, pin);
 }
